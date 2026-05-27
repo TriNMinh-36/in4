@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web chính thức của Nguyễn Minh Trí</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#060613;
+            color:#fff;
+            overflow-x:hidden;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(25,20,50,1) 0px, transparent 60%),
+                radial-gradient(at 100% 100%, rgba(10,35,45,1) 0px, transparent 60%);
+            min-height:100vh;
+        }
+
+        .container{
+            max-width:1100px;
+            margin:0 auto;
+            padding:40px 20px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:60px;
+        }
+
+        .profile-card{
+            background:rgba(255,255,255,0.02);
+            backdrop-filter:blur(20px);
+            border:1px solid rgba(255,255,255,0.08);
+            border-radius:24px;
+            padding:50px;
+            width:100%;
+            box-shadow:0 30px 60px rgba(0,0,0,0.4);
+            display:flex;
+            align-items:center;
+            gap:50px;
+            position:relative;
+            overflow:hidden;
+            transition:0.4s;
+        }
+
+        .profile-card::before{
+            content:'';
+            position:absolute;
+            top:0;
+            left:-50%;
+            width:100%;
+            height:100%;
+            background:linear-gradient(90deg,transparent,rgba(0,242,254,0.15),transparent);
+            transform:skewX(-25deg);
+            transition:0.75s ease-in-out;
+        }
+
+        .profile-card:hover::before{
+            left:125%;
+        }
+
+        .profile-card:hover{
+            transform:translateY(-5px);
+            border-color:rgba(0,242,254,0.4);
+            box-shadow:0 30px 60px rgba(0,242,254,0.1);
+        }
+
+        .avatar-box{
+            flex-shrink:0;
+        }
+
+        .avatar-img{
+            width:220px;
+            height:220px;
+            border-radius:50%;
+            object-fit:cover;
+            border:4px solid transparent;
+            background-image:linear-gradient(#060613,#060613),
+            linear-gradient(135deg,#00f2fe,#4facfe);
+            background-origin:border-box;
+            background-clip:padding-box,border-box;
+            transition:0.5s;
+        }
+
+        .profile-card:hover .avatar-img{
+            transform:rotate(360deg);
+        }
+
+        .info-box{
+            flex-grow:1;
+        }
+
+        .hello-tag{
+            background:linear-gradient(135deg,#00f2fe,#4facfe);
+            color:#060613;
+            padding:5px 14px;
+            border-radius:20px;
+            font-size:0.8rem;
+            font-weight:bold;
+            display:inline-block;
+            margin-bottom:15px;
+        }
+
+        h1{
+            font-size:2.5rem;
+            margin-bottom:10px;
+        }
+
+        .job-title{
+            font-size:1.25rem;
+            color:#00f2fe;
+            font-family:'Courier New', Courier, monospace;
+            font-weight:bold;
+            margin-bottom:20px;
+            border-right:2px solid #00f2fe;
+            white-space:nowrap;
+            width:fit-content;
+            animation:blink 0.75s step-end infinite;
+        }
+
+        .description{
+            color:#94a3b8;
+            line-height:1.6;
+            margin-bottom:30px;
+        }
+
+        .skills-container{
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            margin-bottom:30px;
+        }
+
+        .skill-badge{
+            background:rgba(255,255,255,0.04);
+            border:1px solid rgba(255,255,255,0.08);
+            padding:8px 16px;
+            border-radius:12px;
+            font-size:0.85rem;
+            color:#cbd5e1;
+            transition:0.3s;
+        }
+
+        .skill-badge:hover{
+            background:rgba(0,242,254,0.1);
+            border-color:#00f2fe;
+            color:#00f2fe;
+        }
+
+        .btn-group{
+            display:flex;
+            gap:15px;
+        }
+
+        .btn{
+            border:none;
+            cursor:pointer;
+            text-decoration:none;
+            padding:12px 28px;
+            border-radius:12px;
+            font-weight:600;
+            font-size:0.95rem;
+            transition:0.3s;
+        }
+
+        .btn-primary{
+            background:linear-gradient(135deg,#00f2fe,#4facfe);
+            color:#060613;
+        }
+
+        .btn-secondary{
+            background:transparent;
+            color:#fff;
+            border:1px solid rgba(255,255,255,0.15);
+        }
+
+        .btn:hover{
+            transform:translateY(-2px);
+        }
+
+        .contact-section{
+            width:100%;
+        }
+
+        .contact-title{
+            text-align:center;
+            color:#00f2fe;
+            font-size:1.4rem;
+            margin-bottom:35px;
+        }
+
+        .contact-grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:20px;
+        }
+
+        .contact-box{
+            background:rgba(255,255,255,0.01);
+            border:1px solid rgba(255,255,255,0.05);
+            border-radius:18px;
+            padding:35px 20px;
+            text-align:center;
+            text-decoration:none;
+            color:#fff;
+            transition:0.4s;
+        }
+
+        .box-icon{
+            font-size:3rem;
+            margin-bottom:15px;
+            display:inline-block;
+            color:#64748b;
+        }
+
+        .contact-box:hover{
+            transform:translateY(-8px);
+        }
+
+        .gmail-box:hover{
+            border-color:#ef4444;
+        }
+
+        .gmail-box:hover .box-icon{
+            color:#ef4444;
+        }
+
+        .facebook-box:hover{
+            border-color:#1877f2;
+        }
+
+        .facebook-box:hover .box-icon{
+            color:#1877f2;
+        }
+
+        .tiktok-box:hover{
+            border-color:#00f2fe;
+        }
+
+        .tiktok-box:hover .box-icon{
+            color:#fff;
+        }
+
+        /* POPUP */
+
+        .project-modal{
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.7);
+            backdrop-filter:blur(10px);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            opacity:0;
+            pointer-events:none;
+            transition:0.3s;
+            z-index:999;
+        }
+
+        .project-modal.active{
+            opacity:1;
+            pointer-events:auto;
+        }
+
+        .project-box{
+            width:90%;
+            max-width:700px;
+            background:rgba(10,10,25,0.95);
+            border:1px solid rgba(0,242,254,0.2);
+            border-radius:24px;
+            padding:30px;
+            transform:translateY(20px) scale(0.95);
+            transition:0.3s;
+        }
+
+        .project-modal.active .project-box{
+            transform:translateY(0) scale(1);
+        }
+
+        .project-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:25px;
+        }
+
+        .project-header h2{
+            color:#00f2fe;
+        }
+
+        .close-btn{
+            background:none;
+            border:none;
+            color:#fff;
+            font-size:2rem;
+            cursor:pointer;
+        }
+
+        .project-list{
+            display:flex;
+            flex-direction:column;
+            gap:18px;
+        }
+
+        .project-item{
+            background:rgba(255,255,255,0.03);
+            border:1px solid rgba(255,255,255,0.06);
+            border-radius:16px;
+            padding:20px;
+            transition:0.3s;
+        }
+
+        .project-item:hover{
+            border-color:#00f2fe;
+            background:rgba(0,242,254,0.05);
+        }
+
+        .project-item p{
+            color:#94a3b8;
+            margin-top:8px;
+        }
+
+        @keyframes blink{
+            from,to{
+                border-color:transparent;
+            }
+            50%{
+                border-color:#00f2fe;
+            }
+        }
+
+        @media(max-width:768px){
+
+            .profile-card{
+                flex-direction:column;
+                text-align:center;
+                padding:40px 20px;
+            }
+
+            .avatar-img{
+                width:180px;
+                height:180px;
+            }
+
+            .contact-grid{
+                grid-template-columns:1fr;
+            }
+
+            .btn-group{
+                flex-direction:column;
+            }
+
+            .btn{
+                width:100%;
+            }
+        }
+        /* ========================= */
+/* COPYRIGHT */
+/* ========================= */
+
+.copyright{
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+    z-index: 1000;
+    transition: 0.3s;
+    user-select: none;
+}
+
+.copyright:hover{
+    color: #00f2fe;
+    text-shadow: 0 0 10px rgba(0,242,254,0.5);
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .copyright{
+        bottom: 10px;
+        right: 50%;
+        transform: translateX(50%);
+        font-size: 0.7rem;
+        text-align: center;
+    }
+
+}
+/* ========================= */
+/* SLOGAN BOX */
+/* ========================= */
+
+.slogan-box{
+    position: relative;
+    margin-bottom: 25px;
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: 0.35s ease;
+}
+
+.slogan-box::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background: linear-gradient(
+        135deg,
+        rgba(0,242,254,0.08),
+        transparent,
+        rgba(79,172,254,0.08)
+    );
+    opacity:0;
+    transition:0.35s;
+}
+
+.slogan-box:hover::before{
+    opacity:1;
+}
+
+.slogan-box:hover{
+    border-color: rgba(0,242,254,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,242,254,0.08);
+}
+
+.quote-icon{
+    position:absolute;
+    top:8px;
+    left:15px;
+    font-size:1.4rem;
+    color:#00f2fe;
+    opacity:0.7;
+}
+
+.slogan-text{
+    color:#cbd5e1;
+    font-size:0.98rem;
+    line-height:1.7;
+    padding-left:20px;
+    font-style:italic;
+    letter-spacing:0.3px;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .slogan-box{
+        text-align:left;
+        padding:16px 18px;
+    }
+
+    .slogan-text{
+        font-size:0.92rem;
+        line-height:1.6;
+    }
+
+}
+/* ========================= */
+/* WIKIPEDIA BOX */
+/* ========================= */
+
+.wiki-box:hover{
+    border-color:#ffffff;
+    box-shadow:0 12px 30px rgba(255,255,255,0.12);
+}
+
+.wiki-box:hover .box-icon,
+.wiki-box:hover h3{
+    color:#ffffff;
+    text-shadow:0 0 12px rgba(255,255,255,0.5);
+}
+/* ========================= */
+/* SOUNDCLOUD BOX */
+/* ========================= */
+
+.soundcloud-box:hover{
+    border-color:#ff7700;
+    box-shadow:0 12px 30px rgba(255,119,0,0.18);
+}
+
+.soundcloud-box:hover .box-icon,
+.soundcloud-box:hover h3{
+    color:#ff7700;
+    text-shadow:0 0 12px rgba(255,119,0,0.5);
+}
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="profile-card">
+
+        <div class="avatar-box">
+            <img src="https://cdn.phototourl.com/free/2026-05-27-eb4a3616-0634-4b46-b245-4aff50592f1d.jpg"
+            class="avatar-img">
+        </div>
+
+        <div class="info-box">
+
+            <span class="hello-tag">Thông tin cá nhân / Infomation</span>
+
+            <h1>Nguyễn Minh Trí</h1>
+
+            <div class="job-title" id="typewriter"></div>
+
+            <p class="description">
+                Có niềm đam mê với cơ khí, máy móc cũng như các dự án KHKT, không ngừng học hỏi để nâng cao hiểu biết và định hướng cho tương lai.<br>Chơi gì cũng chơi, nhạc gì cũng nhảy. =))
+            </p>
+
+            <div class="skills-container">
+                <span class="skill-badge">⚡ Python</span>
+                <span class="skill-badge">🌐 HTML</span>
+                <span class="skill-badge">🤖 Arduino / ESP32</span>
+                <span class="skill-badge">💻 Windows Crack Tools</span>
+            </div>
+
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Liên Hệ Ngay</a>
+
+                <button class="btn btn-secondary" id="openProjects">
+                    Dự án / Idea
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="contact" class="contact-section">
+
+        <h2 class="contact-title">LIÊN HỆ TẠI ĐÂY</h2>
+
+        <div class="contact-grid">
+
+            <a href="mailto:tringuyen.work.25@gmail.com"
+            class="contact-box gmail-box">
+
+                <i class="bi bi-google box-icon"></i>
+                <h3>GMAIL</h3>
+                <p>Gửi thư điện tử trực tiếp</p>
+
+            </a>
+
+            <a href="https://www.facebook.com/nm.tri.in4/"
+            target="_blank"
+            class="contact-box facebook-box">
+
+                <i class="bi bi-facebook box-icon"></i>
+                <h3>FACEBOOK</h3>
+                <p>Kết nối và trò chuyện nhanh</p>
+
+            </a>
+
+            <a href="https://tiktok.com/@_nm.tri.in4_"
+            target="_blank"
+            class="contact-box tiktok-box">
+
+                <i class="bi bi-tiktok box-icon"></i>
+                <h3>TIKTOK</h3>
+                <p>Xem video nội dung sáng tạo</p>
+
+            </a>
+            
+            <!-- SoundCloud -->
+<a href="https://soundcloud.com/nm-tri-hcmc?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+target="_blank"
+class="contact-box soundcloud-box">
+
+    <i class="bi bi-cloud-fill box-icon"></i>
+
+    <h3>SOUNDCLOUD</h3>
+
+    <p>Nghe nhạc và khám phá âm thanh</p>
+
+</a>
+            
+            <!-- Wikipedia -->
+<a href="https://vi.wikipedia.org/Thành_viên:LuciferTriNM"
+target="_blank"
+class="contact-box wiki-box">
+
+    <i class="bi bi-wikipedia box-icon"></i>
+
+    <h3>WIKIPEDIA</h3>
+
+    <p>Liên hệ về công việc viết bài trên Wiki</p>
+
+</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- POPUP DỰ ÁN -->
+
+<div class="project-modal" id="projectModal">
+
+    <div class="project-box">
+
+        <div class="project-header">
+            <h2>📁 Các Dự Án Đã Và Đang Thực Hiện</h2>
+
+            <button class="close-btn" id="closeProjects">
+                &times;
+            </button>
+        </div>
+
+        <div class="project-list">
+            <div class="project-item">
+                <h3>⚡Windows Crack Tools (Ý tưởng)</h3>
+                <p>Tạo ra một Tools có thể Active free (mặc dù biết nó có thể phạm pháp :D)</p>
+            </div>
+
+            <div class="project-item">
+                <h3>🌐 Design Website</h3>
+                <p>Tạo Website cá nhân.</p>
+            </div>
+
+            <div class="project-item">
+                <h3>🔥 Drone Cứu Hỏa (đang nghiên cứu)</h3>
+                <p>Phục vụ cho việc cứu hỏa trên cao và khu vực khó tiếp cận.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const words = [
+        "Người của công chúng",
+        "Người viết bài Wikipedia",
+        "Python Programmer",
+        "Nhà crack học"
+    ];
+
+    let i = 0;
+    let timer;
+
+    function typingEffect(){
+
+        let word = words[i].split("");
+
+        var loopTyping = function(){
+
+            if(word.length > 0){
+
+                document.getElementById('typewriter').innerHTML += word.shift();
+
+            }else{
+
+                setTimeout(deletingEffect,2000);
+                return false;
+            }
+
+            timer = setTimeout(loopTyping,100);
+        };
+
+        loopTyping();
+    }
+
+    function deletingEffect(){
+
+        let word = words[i].split("");
+
+        var loopDeleting = function(){
+
+            if(word.length > 0){
+
+                word.pop();
+
+                document.getElementById('typewriter').innerHTML = word.join("");
+
+            }else{
+
+                if(words.length > (i + 1)){
+                    i++;
+                }else{
+                    i = 0;
+                }
+
+                setTimeout(typingEffect,500);
+                return false;
+            }
+
+            timer = setTimeout(loopDeleting,50);
+        };
+
+        loopDeleting();
+    }
+
+    typingEffect();
+
+    // POPUP PROJECT
+
+    const openBtn = document.getElementById("openProjects");
+    const closeBtn = document.getElementById("closeProjects");
+    const modal = document.getElementById("projectModal");
+
+    openBtn.onclick = () => {
+        modal.classList.add("active");
+    };
+
+    closeBtn.onclick = () => {
+        modal.classList.remove("active");
+    };
+
+    window.onclick = (e) => {
+        if(e.target === modal){
+            modal.classList.remove("active");
+        }
+    };
+
+</script>
+
+</body>
+<!-- COPYRIGHT -->
+<div class="copyright">
+    © 2026 TriNMinh. All Rights Reserved.
+</div>
+</html>
+<div class="job-title" id="typewriter"></div>
+<!-- SLOGAN BOX -->
+<div class="slogan-box">
+
+    <span class="quote-icon">❝</span>
+
+    <p class="slogan-text">
+        Tập trung vào sự nghiệp, không phải gái gú.<br>Gái gú là phù du, thành công là mãi mãi.
+    </p>
+<div class="contact-grid">
+
+</div>
